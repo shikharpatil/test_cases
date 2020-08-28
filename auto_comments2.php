@@ -53,7 +53,7 @@ $number=check_posts($web_driver,$number);
  function check_posts($web_driver,$number)
  {
  	$number=$number+2;
-	if($number<25)
+	if($number<=12)
 	{
 		$web_driver->manage()->timeouts()->implicitlyWait(10);
 		$web_driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[5]/div[5]/div[".$number."]")));
@@ -80,7 +80,10 @@ $number=check_posts($web_driver,$number);
 	else
 	{
 		echo "exceeds limit";
-		$web_driver->quit();
+		// $web_driver->quit();
+  //   die();
+    $web_driver->executeScript('window.scrollTo(0,0);');
+    require 'auto_quote_comments.php';
 	}
  }
 

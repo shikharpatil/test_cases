@@ -184,7 +184,7 @@ class posts
 
 		// 	}
 		// }
-		for ($i=164; $i < count($movie_names) ; $i++) 
+		for ($i=0; $i < count($movie_names) ; $i++) 
 		{ 
 			$data=$this->post_data($movie_names[$i],$i,$web_driver);
 			// echo "<pre>";
@@ -229,9 +229,9 @@ $web_driver->manage()->timeouts()->implicitlyWait(10);
 $web_driver->wait()->until(
    WebDriverExpectedCondition::urlIs("http://dev.teeme.net/xyz2"));
 		 $web_driver->findElement(WebDriverBy::id("userName"))
-		            ->sendKeys("user10@teeme.net");
+		            ->sendKeys("user10000@teeme.net");
 		 $web_driver->findElement(WebDriverBy::id("userPassword"))
-		            ->sendKeys("user10") ;
+		            ->sendKeys("user10000") ;
 		 $web_driver->findElement(WebDriverBy::id("remember"))
 		            ->click();           
 		 $web_driver->findElement(WebDriverBy::id("Submit"))
@@ -244,7 +244,7 @@ $web_driver->wait()->until(
 		  $currentURL= $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[1]/div[2]/ul[1]/li[6]/span/h1/a"))->getAttribute('href');
 		 $web_driver->get($currentURL);
 
-		 for ($i=164;$i<count($dataToPost);$i++) 
+		 for ($i=0;$i<count($dataToPost);$i++) 
 		{
 					 $add=$web_driver->findElement(WebDriverBy::id("add"))->click();
 
