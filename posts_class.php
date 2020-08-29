@@ -246,7 +246,9 @@ $web_driver->wait()->until(
 
 		 for ($i=0;$i<count($dataToPost);$i++) 
 		{
-					 $add=$web_driver->findElement(WebDriverBy::id("add"))->click();
+			$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[1]/div[1]/div/a/img"))->getAttribute("id");
+				  $web_driver->findElement(WebDriverBy::id($add))->click();
+					 // $add=$web_driver->findElement(WebDriverBy::id("add"))->click()
 
 				 $web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::id("newPostAdd")));
 
@@ -290,8 +292,15 @@ $web_driver->wait()->until(
 				  $web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::id("timelinePostContents")));
 
 				  $web_driver->manage()->timeouts()->implicitlyWait(10);
+				  $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[4]/div/div/div[2]/div/form/div[4]/input[2]"));
 
-				  $web_driver->navigate()->refresh();
+				  $web_driver->manage()->timeouts()->implicitlyWait(10);
+				  
+
+				  // $web_driver->navigate()->refresh();
+				  // $url=$web_driver->getCurrentUrl();
+				  // $web_driver->get($url);
+
 		}
 		return "done";
 	}

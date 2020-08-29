@@ -1,55 +1,55 @@
 <?php
 // script for adding quote comments
-// namespace Facebook\WebDriver;
+namespace Facebook\WebDriver;
 
-// require_once('/Applications/XAMPP/htdocs/test_script/vendor/autoload.php');
-// use Facebook\WebDriver\Remote\RemoteWebDriver;
-// use Facebook\WebDriver\WebDriverBy;
-// use Facebook\WebDriver\Remote\DesiredCapabilities;
+require_once('/Applications/XAMPP/htdocs/test_script/vendor/autoload.php');
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\WebDriverBy;
+use Facebook\WebDriver\Remote\DesiredCapabilities;
 
-// $host = 'http://localhost:4444/wd/hub';
-// $desiredCapabilities = DesiredCapabilities::chrome();
-// // $desiredCapabilities->setCapability('acceptSslCerts', true);
-// $web_driver = RemoteWebDriver::create($host, $desiredCapabilities);
+$host = 'http://localhost:4444/wd/hub';
+$desiredCapabilities = DesiredCapabilities::chrome();
+// $desiredCapabilities->setCapability('acceptSslCerts', true);
+$web_driver = RemoteWebDriver::create($host, $desiredCapabilities);
 
-// $web_driver->get("http://dev.teeme.net");
-// $web_driver->manage()->timeouts()->implicitlyWait(10);
-// $web_driver->wait()->until(
-//    WebDriverExpectedCondition::titleIs("Teeme"));
-//    $web_driver->findElement(WebDriverBy::id("place_name1"))
-//             ->sendKeys("xyz2");
-//             $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div/form/div/div[2]/div/button"))->click();
-// $web_driver->manage()->timeouts()->implicitlyWait(10);
-// $web_driver->wait()->until(
-//    WebDriverExpectedCondition::urlIs("http://dev.teeme.net/xyz2"));
-//  $web_driver->findElement(WebDriverBy::id("userName"))
-//             ->sendKeys("user100@teeme.net");
-//  $web_driver->findElement(WebDriverBy::id("userPassword"))
-//             ->sendKeys("user100") ;
-//  $web_driver->findElement(WebDriverBy::id("remember"))
-//             ->click();           
-//  $web_driver->findElement(WebDriverBy::id("Submit"))
-//             ->click();
-//  $web_driver->wait()->until(
-//    WebDriverExpectedCondition::titleIs("Home > Dashboard")
-// );  
-//  $web_driver->manage()->timeouts()->implicitlyWait(10);
+$web_driver->get("http://dev.teeme.net");
+$web_driver->manage()->timeouts()->implicitlyWait(10);
+$web_driver->wait()->until(
+   WebDriverExpectedCondition::titleIs("Teeme"));
+   $web_driver->findElement(WebDriverBy::id("place_name1"))
+            ->sendKeys("xyz2");
+            $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div/form/div/div[2]/div/button"))->click();
+$web_driver->manage()->timeouts()->implicitlyWait(10);
+$web_driver->wait()->until(
+   WebDriverExpectedCondition::urlIs("http://dev.teeme.net/xyz2"));
+ $web_driver->findElement(WebDriverBy::id("userName"))
+            ->sendKeys("user100@teeme.net");
+ $web_driver->findElement(WebDriverBy::id("userPassword"))
+            ->sendKeys("user100") ;
+ $web_driver->findElement(WebDriverBy::id("remember"))
+            ->click();           
+ $web_driver->findElement(WebDriverBy::id("Submit"))
+            ->click();
+ $web_driver->wait()->until(
+   WebDriverExpectedCondition::titleIs("Home > Dashboard")
+);  
+ $web_driver->manage()->timeouts()->implicitlyWait(10);
 
-//  // $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[1]/div[2]/ul[1]/li[6]/span/h1/a"))->click();
-//  // $web_driver->manage()->timeouts()->implicitlyWait(10);
-//  $currentURL= $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[1]/div[2]/ul[1]/li[6]/span/h1/a"))->getAttribute('href');
-//  $web_driver->get($currentURL);
+ // $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[1]/div[2]/ul[1]/li[6]/span/h1/a"))->click();
+ // $web_driver->manage()->timeouts()->implicitlyWait(10);
+ $currentURL= $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[1]/div[2]/ul[1]/li[6]/span/h1/a"))->getAttribute('href');
+ $web_driver->get($currentURL);
 
-//  $web_driver->manage()->timeouts()->implicitlyWait(10);
-//  $web_driver->findElement(WebDriverBy::id("leftMenuToggleIcon"))->click();
-// $web_driver->manage()->timeouts()->implicitlyWait(10);
-// $element=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[5]/div[5]/div[2]"));
-// if ($element!==null) 
-// {
-	
-// }
-$number=0;
+ $web_driver->manage()->timeouts()->implicitlyWait(10);
+ $web_driver->findElement(WebDriverBy::id("leftMenuToggleIcon"))->click();
+$web_driver->manage()->timeouts()->implicitlyWait(10);
+$element=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[5]/div[5]/div[2]"));
+if ($element!==null) 
+{
+	$number=0;
 	check_posts_quote($web_driver,$number);
+}
+
 function check_posts_quote($web_driver,$number)
  {
  	$number=$number+2;
@@ -60,14 +60,14 @@ function check_posts_quote($web_driver,$number)
 		$element=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[5]/div[5]/div[".$number."]"));
 	 	if($element==!null)
 	 	{
-	 		$nodes=get_present_comments($web_driver);
+	 		$nodes=get_present_comments($web_driver,$number);
 	 		// echo "<pre>";
 	 		// print_r($nodes);
 	 		// die();
 	 		if(!empty($nodes))
 	 		{
 	 			// make quote comments here
-	 			$done=make_quote_comments($web_driver,$nodes);
+	 			$done=make_quote_comments($web_driver,$nodes,$number);
 	 			if($done=="done")
 	 			{
 	 				die("complete");
@@ -90,12 +90,12 @@ function check_posts_quote($web_driver,$number)
 	else
 	{
 		echo "exceeds limit";
-		$web_driver->quit();
+		// $web_driver->quit();
 		die();
 	}
  }
 // $web_driver->quit();
-function  get_present_comments($web_driver)
+function  get_present_comments($web_driver,$number)
 {
 	// $all=$web_driver->findElements(WebDriverBy::className("postWebChatBoxSelf"));
 	// $i=0;
@@ -103,17 +103,17 @@ function  get_present_comments($web_driver)
 	$all_ids=array();
 	$data=array(); 
 	$j=0;
-	$comment_id;
+	$comment_id=0;
 	for ($i=1; $i <=5 ; $i++)
 	{ 
 	
-		$more=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[5]/div[5]/div[2]/form[".$i."]/div/div[2]/div[2]/div[8]/div/div[2]/a"));
+		$more=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[5]/div[5]/div[".$number."]/form[".$i."]/div/div[2]/div[2]/div[8]/div/div[2]/a"));
 		echo "<br>";
 		print_r($more);
 		if(!empty($more))
 		{
 			
-				$is_present=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[5]/div[5]/div[2]/form[".$i."]/div/div[2]/div[2]/div[8]/div/div[3]/div[3]"));
+				$is_present=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[5]/div[5]/div[".$number."]/form[".$i."]/div/div[2]/div[2]/div[8]/div/div[3]/div[3]"));
 				echo "<br>";
 				print_r($is_present);
 				if($is_present!==null)
@@ -146,7 +146,7 @@ function  get_present_comments($web_driver)
 		{
 			echo "in else";
 			
-				$is_present=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[5]/div[5]/div[2]/form[".$i."]/div/div[2]/div[2]/div[8]/div/div[2]/div[2]"));
+				$is_present=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[5]/div[5]/div[".$number."]/form[".$i."]/div/div[2]/div[2]/div[8]/div/div[2]/div[2]"));
 				if($is_present!==null)
 				{
 					foreach ($is_present as $key => $value) 
@@ -177,12 +177,14 @@ function  get_present_comments($web_driver)
 			$data["count"]=$j;
 			return $data;
 }
-function make_quote_comments($web_driver,$nodes)
+function make_quote_comments($web_driver,$nodes,$number)
 {
 	$ids=$nodes["ids"];
 	foreach ($ids as $key => $value) 
 	{
-		$found=$web_driver->findelements(WebDriverBy::id($value));
+		if($value!=='0' || $value!==0)
+		{
+			$found=$web_driver->findelements(WebDriverBy::id($value));
 		if(!empty($found))
 		{
 			$web_driver->manage()->timeouts()->implicitlyWait(10);
@@ -202,8 +204,13 @@ function make_quote_comments($web_driver,$nodes)
 			$web_driver->findElement(WebDriverBy::xpath('//*[@id="nestedCommentTextBox'.$id_number.'"]/div[2]/input[1]'))->click();
 			$web_driver->manage()->timeouts()->implicitlyWait(10);
 		}
+		}
 	}
-	return "done";
+	$web_driver->executeScript('window.scrollTo(0,document.body.scrollHeight);');
+   $web_driver->executeScript('window.scrollTo(0, 400);');
+   $web_driver->manage()->timeouts()->implicitlyWait(10);
+   check_posts_quote($web_driver,$number);
+	// return "done";
 }
 // 
 ?>
