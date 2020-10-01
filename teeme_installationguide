@@ -1,0 +1,17 @@
+git clone  this link "https://github.com/parvtbb/development_2020.git" in to htdocs folder.
+if not the above step then clone it from your github. there could be issues with cloning the repository(not found) make sure your ssh key are stored in your git account, Check the url of git repo.
+Add config.php and routes, php file in the config folder.
+add database localhost, username, password for mysql.
+set error reporting to all to get all the errors. Do this in Teeme controller. or in index.php file set the environment to development and checking back after the error is solved.to check the errors you can look at log files also (apace error log, php error log, mysql or codeigniter log files).
+if you get any errors solve them.
+create a fresh instance in installation page.Enter the information there click create.
+if you get "can't open file r".
+check permissions on config.php file give the access and also to routes.php .The issue should be solved.
+then create instance again. If you get "can't gets". get to the line where the issue is in model(identity_db_manager.php) change =>$line = fgets($file) or die("can't gets"); to =>$line = fgets($file);
+now create a place add place details click create place. if you get "can not open file 1" this is because the places directory is not present create it in the controllers folder. set the permissions right.
+now create a place again. if you get "Table 'teeme_instancenew_new_place.teeme_tag_types' doesn't exist" error go to the code where the error is.this could be issue with running the place.sql file See the Command. see from where and which is the right path to run the mysql command for creating a database from terminal or command line(the directory where mysql is present)get the write command. this was the right command for MacBook => "$command='/Applications/XAMPP/xamppfiles/bin/mysql -h' .$server .' -u' .$server_username .' -p' .$server_password .' ' .$place_db_name .' < ' .$place_db;". now the place should be created. the command for windows could be this => "$command='C:/xampp/mysql/bin/mysql -h' .$server .' -u' .$server_username .' -p' .$server_password .' ' .$place_db_name .' < ' .$place_db"; Make sure the max execution time is set correcly in the php.ini flie this could cause issue while creating a place also the slash inhe commad are correct.
+once the place is created then create a the place manager. when place manager is created then sign out from admin. login in to place by place managers credentials .
+now create a space. now if Space cannot be created is the error it cold be because the workplaces folder is not created properly check it it should be Root directory/workplaces/directory with the place name/ and the subsequent folder. This error could be because how directory is created in any OS. check for our machine OS . in MacBook pro it was DARWIN the os.
+now you will have to delete the place from admin panel, and also the folders which might have been created while the place is created inside the root folder.
+now there still could be problem the issue for space not getting created could be there go identity_db_manager model and look for createNewEmptyFolder() there also could be of os. and then follow step 14.
+create the place again . create spaces and users in it. 

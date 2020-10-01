@@ -3,7 +3,6 @@
  * 
  */
 namespace Facebook\WebDriver;
-session_start();
 require_once('/Applications/XAMPP/htdocs/test_script/vendor/autoload.php');
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
@@ -11,7 +10,7 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\WebDriverMouse;
 
 
-class posts
+class posts_my
 {
 	public $post=array();
 	function get_names()
@@ -187,7 +186,7 @@ class posts
 		// 	}
 		// }
 		// for ($i=0; $i < count($movie_names) ; $i++)
-		for ($i=0; $i < 50 ; $i++) 
+		for ($i=0; $i < 10 ; $i++) 
 		{ 
 			$data=$this->post_data($movie_names[$i],$i,$web_driver);
 			// echo "<pre>";
@@ -202,15 +201,12 @@ class posts
 		// echo "<br>";
 		// echo "<pre>";
 		// print_r($dataToPost);
-		$web_driver->quit();
+		// $web_driver->quit();
 
 		$done=$this->post_in_teeme($dataToPost);
 
         if($done=="done")
         {
-        	$message= "done";
-        	// mail("shikhar.patil@teambeyondborders.com","mail through php",$message);
-        	echo "done";
         	die();
         }
 		// $web_driver->quit();
@@ -227,8 +223,7 @@ class posts
 				$desiredCapabilities = DesiredCapabilities::chrome();
 				// $desiredCapabilities->setCapability('acceptSslCerts', true);
 				$web_driver = RemoteWebDriver::create($host, $desiredCapabilities,1000 * 1000,1000 * 1000);
-try
-{
+
 
 						$web_driver->get("http://dev.teeme.net");
 						$web_driver->manage()->timeouts()->implicitlyWait(10);
@@ -249,25 +244,13 @@ try
 				            ->click();           
 				 $web_driver->findElement(WebDriverBy::id("Submit"))
 				            ->click();
-				            try
-				            {
-				            	 $web_driver->wait()->until(
+				 $web_driver->wait()->until(
 				   WebDriverExpectedCondition::titleIs("Home > Dashboard")
-				);
-				            }
-				            catch(Exception\TimeoutException $e)
-				            {
-				            	echo "time out handled";
-
-				            	die();
-				            }
-				//  $web_driver->wait()->until(
-				//    WebDriverExpectedCondition::titleIs("Home > Dashboard")
-				// );  
+				);  
 				 $web_driver->manage()->timeouts()->implicitlyWait(10);
-
-				 $web_driver->findElement(WebDriverBy::id("spaceSelect"))->click();
-				 $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[1]/div[2]/ul[1]/select/option[56]"))->click();
+// for my space
+				 // $web_driver->findElement(WebDriverBy::id("spaceSelect"))->click();
+				 // $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[1]/div[2]/ul[1]/select/option[11]"))->click();
 
 				 // /html/body/div[5]/div[1]/div[2]/ul[1]/select/option[2]
 				 // /html/body/div[5]/div[1]/div[2]/ul[1]/select/option[7]
@@ -290,66 +273,16 @@ try
 		// $web_driver->getMouse()->mouseMove($add->getCoordinates());
 
 				 // for ($i=0;$i<count($dataToPost);$i++) 
-				 for ($i=0;$i<50;$i++)
+				 for ($i=0;$i<10;$i++)
 				{
-					$start_time = microtime(true);
+					// $start_time = microtime(true);
 					$web_driver->manage()->timeouts()->implicitlyWait(50);
 					// $web_driver->executeScript("showTimelineEditor();");
-					// try
-					// {
-					//      $web_driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[1]")));	
-					// }
-					// catch(Exception\NoSuchElementException $e)
-					// {
-					// 	print_r("exception handled");
-					// 	die();
-					// }
-					$web_driver->wait(60,100);
-					$web_driver->findElement(WebDriverBy::id("postTabUI"));
-					$web_driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[1]/div[2]/div[2]/div[1]")));
-					$web_driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[1]/div[2]/div[2]/div[1]/div")));
-					$web_driver->wait(60,100);
-					// $isDisplayed=$web_driver->wait(60,100)->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[1]/div[1]/div")))->isEnabled();
-// 					if($i>1)
-						 $web_driver->findElement(WebDriverBy::id("add"))->click();
-
-// {
-// 	if($isDisplayed==true)
-// 	die("was visible");
-// else
-// 	die("not visible");
-// }					// /html/body/div[5]/div[2]/div[2]/div[1]/div[1]/div
-// if($isDisplayed==true)
-// {
-// 	echo "displayed";
-// 	$web_driver->wait(100,100);
-// 					$web_driver->wait(100,100)->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[1]/div[1]/div")));
-// 	// $web_driver->findElement(WebDriverBy::id("add"))->click();
-// 					$web_driver->executeScript("showTimelineEditor();");
-// }
-// else
-// {
-// 	echo "enable";
-//    $web_driver->wait(10,100);
-// 					$enabled=$web_driver->wait(10,100)->until(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[1]/div[1]/div"))->isEnabled();
-// if($enabled==true)
-// {
-// 	echo "enable true";
-// 	$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[1]/div[1]/div/a"))->click();
-// }
-// else
-// {
-// 	$web_driver->navigate()->refresh();
-// 	echo "refresh";
-// 	$web_driver->manage()->timeouts()->implicitlyWait(50);
-// 	$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[1]/div[1]/div/a"))->click();
-// }
-
-// }
+					
 					// $web_driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id("add")));
 					// $add=$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[1]/div[1]/div/a"))->getAttribute("id");
 					// /html/body/div[5]/div[2]/div[2]/div[1]/div[1]/div/a/img
-						  // $web_driver->findElement(WebDriverBy::id("add"))->click();
+						  $web_driver->findElement(WebDriverBy::id("add"))->click();
 					
 					// $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[1]/div[1]/div"));
 					// $found=$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[1]/div[1]/div/a"));
@@ -377,10 +310,11 @@ try
 						if($content!==null || !empty($content))
 						{
 						   
-						   	$web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/form/div[1]/div[3]/div/p")));
+						   	$web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[4]/div/div/div[2]/div/form/div[1]/div[3]/div/p")));
+						   	// /html/body/div[5]/div[4]/div/div/div[2]/div/form/div[1]/div[3]/div/p
 						   	// /html/body/div[5]/div[2]/div[2]/div[5]/div[1]/form/div[1]/div[3]/div/p
 						   	// /html/body/div[5]/div[4]/div/div/div[2]/div/form/div[1]/div[3]/div/p
-						 $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/form/div[1]/div[3]/div/p"))->sendKeys($content);
+						 $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[4]/div/div/div[2]/div/form/div[1]/div[3]/div/p"))->sendKeys($content);
 
 						
 
@@ -415,9 +349,9 @@ try
 
 						  $web_driver->manage()->timeouts()->implicitlyWait(10);
 						  /*dev server below code uncomment*/
-						  // $web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[4]/div/div/div[2]/div/form/div[4]/input[2]")));
-						  // $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[4]/div/div/div[2]/div/form/div[4]/input[2]"))->click();
-						  // $web_driver->findElement(WebDriverBy::id("add"))->click();
+						  $web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[4]/div/div/div[2]/div/form/div[4]/input[2]")));
+						  $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[4]/div/div/div[2]/div/form/div[4]/input[2]"))->click();
+						  // /html/body/div[5]/div[4]/div/div/div[2]/div/form/div[4]/input[2]
 						  // /html/body/div[5]/div[4]/div/div/div[2]/div/form/div[4]/input[2]
 						  // $web_driver->executeScript("showTimelineEditor();");
 
@@ -427,42 +361,15 @@ try
 						
 
 						  $web_driver->manage()->timeouts()->implicitlyWait(10);
-						  $end_time = microtime(true);
-						  $execution_time = ($end_time - $start_time);
-						  echo "<br>";
-						  echo " Execution time of script = ".$execution_time." sec";
-						  echo "<br>".$i;
-		 // $web_driver->navigate()->refresh();
-						  // $url=$web_driver->getCurrentUrl();
-						  // $web_driver->get($url);
-						 $alert=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[9]"));
-          if(!empty($alert))
-          {
-            
-            $web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[9]/div")));
-            $web_driver->findElement(WebDriverBy::id("popup_ok"))->click();
-            $web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/form/div[4]/input[2]")))->click();
-
-            
-          }
+						  // $end_time = microtime(true);
+						  // $execution_time = ($end_time - $start_time);
+						  // echo "<br>";
+						  // echo " Execution time of script = ".$execution_time." sec";
+		 $web_driver->navigate()->refresh();
+						
 
 						  $web_driver->manage()->timeouts()->implicitlyWait(10);
 					 }
-		}
-		catch(Exception\NoSuchElementException $e)
-					{
-						print_r("exception handled");
-						$web_driver->quit();
-						$this->post_in_teeme($dataToPost);
-						// die();
-					}
-					catch(Exception\TimeoutException $e)
-				            {
-				            	echo "time out handled";
-				            	$web_driver->quit();
-						$this->post_in_teeme($dataToPost);
-				            	// die();
-				            }
 					
 						  
 
@@ -474,12 +381,11 @@ try
 				
 }
 
-$posts_500 = new posts(); 
+$posts_500 = new posts_my(); 
 	$host = 'http://localhost:4444/wd/hub';
 $desiredCapabilities = DesiredCapabilities::chrome();
 // $desiredCapabilities->setCapability('acceptSslCerts', true);
 $web_driver = RemoteWebDriver::create($host, $desiredCapabilities);
-$_SESSION['posting']=0;
 $posts_500->make_post_data($web_driver);
 	// make_post_data();
 ?>

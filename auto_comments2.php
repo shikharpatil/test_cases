@@ -10,35 +10,47 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 $host = 'http://localhost:4444/wd/hub';
 $desiredCapabilities = DesiredCapabilities::chrome();
 // $desiredCapabilities->setCapability('acceptSslCerts', true);
-$web_driver = RemoteWebDriver::create($host, $desiredCapabilities);
+$web_driver = RemoteWebDriver::create($host, $desiredCapabilities,100 * 1000,100 * 1000);
 
-$web_driver->get("http://dev.teeme.net");
+$web_driver->get("http://localhost/teeme");
 $web_driver->manage()->timeouts()->implicitlyWait(10);
 $web_driver->wait()->until(
    WebDriverExpectedCondition::titleIs("Teeme"));
    $web_driver->findElement(WebDriverBy::id("place_name1"))
-            ->sendKeys("xyz2");
+            ->sendKeys("new_place");
             $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div/form/div/div[2]/div/button"))->click();
 $web_driver->manage()->timeouts()->implicitlyWait(10);
 $web_driver->wait()->until(
-   WebDriverExpectedCondition::urlIs("http://dev.teeme.net/xyz2"));
+   WebDriverExpectedCondition::urlIs("http://localhost/teeme/new_place"));
  $web_driver->findElement(WebDriverBy::id("userName"))
-            ->sendKeys("user100@teeme.net");
+            ->sendKeys("jerry@teeme.net");
  $web_driver->findElement(WebDriverBy::id("userPassword"))
-            ->sendKeys("user100") ;
+            ->sendKeys("jerrytbb") ;
  $web_driver->findElement(WebDriverBy::id("remember"))
             ->click();           
  $web_driver->findElement(WebDriverBy::id("Submit"))
             ->click();
- $web_driver->wait()->until(
+            $web_driver->manage()->timeouts()->implicitlyWait(10);
+
+ $web_driver->wait(60,1000)->until(
    WebDriverExpectedCondition::titleIs("Home > Dashboard")
 );  
- $web_driver->manage()->timeouts()->implicitlyWait(10);
+//  $web_driver->manage()->timeouts()->implicitlyWait(10);
+
+//  $web_driver->get("http://dev.teeme.net/dashboard/index/13/type/1/1");
+
+//  $web_driver->wait()->until(
+//    WebDriverExpectedCondition::titleIs("Home > Dashboard")
+// );
 
  // $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[1]/div[2]/ul[1]/li[6]/span/h1/a"))->click();
  // $web_driver->manage()->timeouts()->implicitlyWait(10);
  $currentURL= $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[1]/div[2]/ul[1]/li[6]/span/h1/a"))->getAttribute('href');
  $web_driver->get($currentURL);
+
+ $web_driver->wait(60,1000)->until(
+   WebDriverExpectedCondition::titleIs("Teeme > Post")
+);
 
  $web_driver->manage()->timeouts()->implicitlyWait(10);
  $web_driver->findElement(WebDriverBy::id("leftMenuToggleIcon"))->click();
@@ -53,7 +65,7 @@ $number=check_posts($web_driver,$number);
  function check_posts($web_driver,$number)
  {
  	$number=$number+2;
-	if($number<=8)
+	if($number<=4)
 	{
 		$web_driver->manage()->timeouts()->implicitlyWait(10);
 		$web_driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[5]/div[5]/div[".$number."]")));
@@ -212,7 +224,7 @@ function make_comments($web_driver,$number,$nodes)
 function check_posts_quote($web_driver,$number)
  {
   $number=$number+2;
-  if($number<=8)
+  if($number<=4)
   {
     $web_driver->manage()->timeouts()->implicitlyWait(10);
     $web_driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[2]/div[5]/div[5]/div[".$number."]")));
