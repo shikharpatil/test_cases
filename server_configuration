@@ -1,0 +1,78 @@
+Server credentials: User => root, password => 2015#tbb, ip => 172.105.62.87, 172.105.53.252, 45.79.127.12, 172.105.58.161, 172.105.36.22, 172.105.57.63, 45.79.127.169, 172.105.55.35, 172.105.40.70, 172.105.35.184  
+Open Terminal or CLI, Type => ssh root@<--ip address here--> ENTER.
+It will ask for password Type => 2015#tbb ENTER.
+You are now logged in the remote server.
+Now install Apache, php, mysql.
+For apache Type => sudo apt install apache2 ENTER. you can follow this link  click.
+Now install mysql server Type => sudo apt install mysql-server ENTER.
+Once mysql is installed, Type => sudo mysql_secure_installation ENTER. It will ask set password for mysql then set it.
+Now it will ask for further changes like, Remove anonymous users, Disallow remote root logins, Remove the test database. It is recommended that you answer yes to these options.
+Once mysql is secured, now install php Type => sudo apt install php php-pear ENTER.
+Adding mysql to php Type => sudo apt install php-mysql ENTER.
+Adding php module to apache Type => sudo apt install libapache2-mod-php ENTER.
+After this make some configuration changes in the php.ini file Type => sudo nano /etc/php/7.4/apache2/php.ini ENTER.
+Opened the php.ini file in nano editor in the above step. Change max_execution_time = 9999, and memory_limit = 256M .
+Save the changes by control+x and then press y ENTER. to confirm 
+Create a log file for php to log errors Type => sudo mkdir -p /var/log/php ENTER.
+Changing the owner of the directory created Type => sudo chown www-data /var/log/php ENTER.
+Restart apache after the changes Type => sudo service apache2 restart ENTER.
+Create a directory to keep the automated scripts Type => cd /var/www/html ENTER.
+Now create directory Type => mkdir <-- directory name--> ENTER.
+Now change to this directory  Type => cd /var/www/html/<--directory name-->.
+Now create a php file the script to run for adding posts. Type => sudo touch post_class.php  ENTER.
+Now open the file in nano editor and paste the code into it Type => sudo nano post_class.php ENTER. 
+Once the code is pasted press "control+x" press y ENTER. the file is saved.
+Now the text file to read the names of the movies to get data to post Type => sudo touch movies.txt ENTER.
+Opening the movies.txt file  in the nano  editor and paste all the movie names Type => sudo nano movies.txt ENTER.
+paste all the movie names . Repeat  the step number 24. to save.
+Type => ls ENTER. to check the files exist or not.
+Now we need to install java jdk for running the selenium server. Type=> sudo apt-get install openjdk-8-jdk ENTER. 
+Once java is installed check the installation by Typing => java -version ENTER. If it shows the version the installation was successful.
+Now we have to set up the JAVA_HOME variable path in bash profile. before this locate your jdk Type=> locate openjdk ENTER. if the locate command is not found then Type => sudo apt install mlocate ENTER. now type again locate openjdk ENTER.
+Now We set up the JAVA_HOME path in the bash profile. Type => sudo vi ~/.bash_profile ENTER. Now bash profile is opened in vim editor.
+Press i to insert. The type => JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 ENTER. then Type => PATH=$PATH:$HOME/bin:$JAVA_HOME/bin ENTER. now type=> export JAVA_HOME and type=> export PATH press "escape" then type => :wq to save the changes ENTER.
+To apply changes Type => source ~/.bash_profile ENTER. 
+now to check if the path is set or not Type => echo $JAVA_HOME Enter.
+Now Install the selenium_standalone_jar file => wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar ENTER. selenium jar file is installed in the directory.
+Now install browser driver i.e chromedriver compatible with your chrome browser version.
+Type => wget https://chromedriver.storage.googleapis.com/85.0.4183.87/chromedriver_linux64.zip ENTER.
+Type => sudo mv chromedriver /usr/bin/chromedriver ENTER.
+Type => sudo chown root:root /usr/bin/chromedriver ENTER.
+Type => sudo chmod +x /usr/bin/chromedriver ENTER.
+Now the chromedriver is set to be used is set to be used.
+Now install the chrome browser Type => sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add ENTER.
+Then type => sudo echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list ENTER.
+then type => sudo apt-get -y update ENTER.
+Then type => sudo apt-get -y install google-chrome-stable ENTER.
+Now the Chrome driver will be installed.
+Now we need to install composer, which will be required to install php-webdriver.
+Go to this link for composer installation click1 or this one click2 .
+before installing composer Type => sudo apt-get install curl php-cli php-mbstring git unzip ENTER. required for composer installation.
+Install the composer setup in directory /var/www/html .
+Now install composer type => sudo apt install composer ENTER.
+You can check version of composer type => composer --version ENTER.
+Go to /var/www/html/ directory and type => php composer require php-webdriver/webdriver ENTER.
+If you get problem installing php-webdriver, which says requested extension curl missing from your system then go to root directory type => cd ENTER.
+Now install curl in the system Type => sudo apt-get install php-curl ENTER.
+Repeat step 54.
+If you get problem saying requested extension zip missing from your system then go to root directory type=> cd ENTER.
+Now install zip in the system Type => sudo apt-get install php7.4-zip ENTER. check php version.
+Repeat step 54 again. Now if the php-webdriver is installed check it type => ls ENTER. it will give you list of files, folders in the directory.
+If a directory is present with name vendor then php-webdriver was installed successfully.
+Now open your post_class.php file and set the correct path for php-webdriver.
+Now open a different terminal session from same credentials look up step 2 and 3.
+Use screen command and run your process there, once the process is started detach from it press ctrl+a then d immediately after. To get back to session type => screen -r ENTER. for reference screen command reference
+In the new session run the selenium jar file to start the selenium server. Type =>  java -jar selenium-server-standalone-3.141.59.jar  ENTER.
+Once the selenium server has started go previous session from there run the post_class.php file.
+Now if you get error while running the script saying "unknown error: Chrome failed to start: exited abnormally." and "(unknown error: DevToolsActivePort file doesn't exist)"  This could be because you are running the chrome as root. this error can be solved by setting chrome options in the script.
+Open script type => sudo nano post_class.php ENTER.
+ Add these lines at the top "use Facebook/Webdriver/Chrome/ChromeOptions;" where other classes are included in the script.
+Now add options in the script at the bottom look for line of code "$desiredCapabilities= DesiredCapabilities::chrome();" below this line add below code "
+ $options = new chromeChromeOptions();
+$options->addArguments(["--no-sandbox","--disable-dev-shm-usage","--headless"]);
+$desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $options);"
+Add the same above code in post_in_teeme($dataToPost) function after the line of code mentioned in step 71. here new browser instance is opened just for posting, previous instance was to get data for posting.
+Press control+x to the press Y and Enter. To save the file.
+Now try to run the script. Run the script in the Screen command session
+Another error => Fatal error: Uncaught FacebookWebDriverExceptionWebDriverCurlException: Curl error thrown for http POST to /session with params: {"capabilities":{"firstMatch":[{"browserName":"chrome"}]},"desiredCapabilities":{"browserName":"chrome","platform":"ANY"}} Failed to connect to localhost port 4444: Connection refused in /var/www/html/vendor/php-webdriver/webdriver/lib/Remote/HttpCommandExecutor.php:331 Stack trace: #0 /var/www/html/vendor/php-webdriver/webdriver/lib/Remote/RemoteWebDriver.php(136): FacebookWebDriverRemoteHttpCommandExecutor->execute() #1 /var/www/html/auto_scripts/exapmle.php(21): FacebookWebDriverRemoteRemoteWebDriver::create() #2 {main} thrown in /var/www/html/vendor/php-webdriver/webdriver/lib/Remote/HttpCommandExecutor.php on line 331.
+If the error is the above mentioned than this could be because of selenium server restart it . Other wise the script should run properly.

@@ -192,7 +192,7 @@ $web_driver->findElement(WebDriverBy::className("ftrLi "))
         	// $to = "patilshikhar@gmail.com";
 			// $to = "shikhar.patil@teambeyondborders.com";
 			$subject = "Teeme add post script";
-			$message = "IP : 172.105.62.87 \r\n Successful post added : ".$this->post_count;
+			$message = "IP : 172.105.53.252 \r\n Successful post added : ".$this->post_count;
 			$headers = array("From: shikhar.patil@teambeyondborders.com",
 			   "Reply-To: shikhar.patil@teambeyondborders.com",
 			   "X-Mailer: PHP/" . PHP_VERSION
@@ -502,6 +502,7 @@ $web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(
                                                   // $execution_time = ($end_time - $start_time);
                                                   // echo "<br>";
                                                   // echo " Execution time of script = ".$execution_time." sec";
+                                                  $this->post_count++;
                  echo $i;
                  // $web_driver->navigate()->refresh();
                  $alert=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[9]"));

@@ -235,11 +235,11 @@ try
 			$web_driver->wait()->until(
 			   WebDriverExpectedCondition::titleIs("Teeme"));
 			   $web_driver->findElement(WebDriverBy::id("place_name1"))
-			            ->sendKeys("xyz2");
+			            ->sendKeys("xyz3");
 			            $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div/form/div/div[2]/div/button"))->click();
 			$web_driver->manage()->timeouts()->implicitlyWait(10);
 			$web_driver->wait()->until(
-		   WebDriverExpectedCondition::urlIs("http://dev.teeme.net/xyz2"));
+		   WebDriverExpectedCondition::urlIs("http://dev.teeme.net/xyz3"));
 				 $web_driver->findElement(WebDriverBy::id("userName"))
 				            ->sendKeys("mary@teeme.net");
 				            // last dev user user9911@teeme.net
@@ -249,18 +249,48 @@ try
 				            ->click();           
 				 $web_driver->findElement(WebDriverBy::id("Submit"))
 				            ->click();
-				            try
-				            {
-				            	 $web_driver->wait()->until(
-				   WebDriverExpectedCondition::titleIs("Home > Dashboard")
-				);
-				            }
-				            catch(Exception\TimeoutException $e)
-				            {
-				            	echo "time out handled";
+				            $web_driver->wait()->until(WebDriverExpectedCondition::urlContains("http://dev.teeme.net"));
+                                            $thisUrl=$web_driver->getCurrentUrl();
+                                            if($thisUrl=="http://dev.teeme.net/")
+                                            {
+                                            	$web_driver->manage()->timeouts()->implicitlyWait(10);
+                        $web_driver->wait()->until(
+                           WebDriverExpectedCondition::titleIs("Teeme"));
+                           $web_driver->findElement(WebDriverBy::id("place_name1"))
+                                    ->sendKeys("xyz2");
+                                    $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div/form/div/div[2]/div/button"))->click();
+                        $web_driver->manage()->timeouts()->implicitlyWait(10);
+                        $web_driver->wait()->until(
+                   WebDriverExpectedCondition::urlIs("http://dev.teeme.net/xyz2"));
+                                 $web_driver->findElement(WebDriverBy::id("userName"))
+                                            ->sendKeys($username);
+                                            // last dev user user9911@teeme.net
+                                 $web_driver->findElement(WebDriverBy::id("userPassword"))
+                                            ->sendKeys($pass);
+                                 $web_driver->findElement(WebDriverBy::id("remember"))
+                                            ->click();           
+                                 $web_driver->findElement(WebDriverBy::id("Submit"))
+                                            ->click();
+                                            $web_driver->wait(100,100)->until(
+                                   WebDriverExpectedCondition::titleIs("Home > Dashboard"));
+                                            }
+                                            else
+                                            {
+                                                   $web_driver->wait(100,100)->until(
+                                   WebDriverExpectedCondition::titleIs("Home > Dashboard"));	
+                                            }
+				//             try
+				//             {
+				//             	 $web_driver->wait()->until(
+				//    WebDriverExpectedCondition::titleIs("Home > Dashboard")
+				// );
+				//             }
+				//             catch(Exception\TimeoutException $e)
+				//             {
+				//             	echo "time out handled";
 
-				            	die();
-				            }
+				//             	die();
+				//             }
 				//  $web_driver->wait()->until(
 				//    WebDriverExpectedCondition::titleIs("Home > Dashboard")
 				// );  
