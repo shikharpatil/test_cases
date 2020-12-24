@@ -377,7 +377,7 @@ class document
 				 	// /html/body/div[5]/div[2]/div[2]
 				 	$web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[2]")));
 				 	// /html/body/div[5]/div[2]/div[2]/div[1]/a
-				 	$web_driver->findElement(WebDriverBy::linkText("SpaceDoc18"))->click();
+				 	$web_driver->findElement(WebDriverBy::linkText("SpaceDoc16"))->click();
 				}
 				else
 				{
@@ -390,10 +390,10 @@ class document
 				// $web_driver->quit();
 				for($i=0;$i<10;$i++)
 				{
-					echo "loop";
+					echo " loop ";
 					$web_driver->manage()->timeouts()->implicitlyWait(50);
 					$web_driver->wait(60,100);
-					echo "this element 1";
+					echo " this element 1 ";
 					// $web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::id("aAddNewNote")));
 					$web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[2]/div[1]/div[2]/div[4]/div[1]/span[1]/a")));
 					// /html/body/div[5]/div[2]/div[1]/div[2]/div[4]/div[1]/span[1]/a
@@ -401,36 +401,40 @@ class document
 
 					// xpath for alert changes according to document
 					$alert=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[8]/div/div[1]"));
+					// /html/body/div[8]/div/div[1]
+					// /html/body/div[9]/div/div[2]
+					// /html/body/div[8]/div/div[2]
 					// /html/body/div[8]/div
 					// /html/body/div[8]/div
 
 						if(!empty($alert))
 						{
-							echo "in alert";
+							echo " in alert ";
 							
 							$web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[8]/div/div[2]/input")));
 							// /html/body/div[8]/div/div[2]/input
 							// /html/body/div[8]/div/div[2]/input
+							// /html/body/div[8]/div/div[2]/input
 							$web_driver->findElement(WebDriverBy::id("popup_ok"))->click();
 							// $web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[3]/div/div/div[2]/div/form/div[4]/input[2]")))->click();
-							echo "here";
+							echo " here ";
 							$web_driver->manage()->timeouts()->implicitlyWait(10);
 							// $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/a[1]/input"))->click();
 							// /html/body/div[5]/div[2]/div[1]/div[2]/div[4]/div[1]/span[1]/a
-							echo "here2";
+							echo " here2 ";
 							$web_driver->manage()->timeouts()->implicitlyWait(50);
 							$alert=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[8]/div/div[1]"));
 							// /html/body/div[9]/div/div[1]
 							if(!empty($alert))
 							{
-								echo "still in alert";
+								echo " still in alert ";
 								$web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[8]/div/div[2]/input")));
 							// /html/body/div[8]/div/div[2]/input
 							$web_driver->findElement(WebDriverBy::id("popup_ok"))->click();
 							}
 							$web_driver->findElement(WebDriverBy::id("aAddNewNote"))->click();
 						}
-						echo "this element";
+						echo " this element ";
 						$web_driver->wait(60,100);
 						$web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[2]/form")));
 						// $web_driver->findElement(WebDriverBy::xpath(""));
@@ -439,25 +443,25 @@ class document
 					$content=$dataInLeaves[$i]["data"];
 					$editor=$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/div/div[3]/div/p"))->sendKeys($content);
 					// $is_draft=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/span[1]"));
-					echo "content added";
+					echo " content added ";
 					$is_draft=$web_driver->findElements(WebDriverBy::id("SaveAsDraftLeafFirst"));
 					
 					if(!empty($is_draft))
 					{
-						echo "auto save";
+						echo " auto save ";
 						// $is_draft_saved=$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/span[1]"))->getText();
 						$web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::id("displayDraftSaveMessageFirst")));
 						$is_draft_saved=$web_driver->findElement(WebDriverBy::id("displayDraftSaveMessageFirst"))->getText();
 						if($is_draft_saved=="Drafts saved")
 						{
-							echo "draft";
+							echo " draft ";
 							$web_driver->manage()->timeouts()->implicitlyWait(50);
 							$web_driver->wait(60,100);
 							$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/a[1]/input"))->click();
 						}
 						else
 						{
-							echo "draft else";
+							echo " draft else ";
 							$web_driver->manage()->timeouts()->implicitlyWait(50);
 							$web_driver->wait(60,100);
 							$save=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/a[1]/input"));
@@ -470,28 +474,44 @@ class document
 							// /html/body/div[5]/div[2]/form/div/div/span/div/a[1]/input
 						}
 					}
+					$web_driver->wait(60,100);
 					// $web_driver->wait()->until(WebDriverExpectedCondition::)
-					$web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/a[1]/input")));
-					$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/a[1]"))->click();
+					// $web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/a[1]/input")));
+					// $web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/a[1]"))->click();
 					$editor_open=$web_driver->findElements(WebDriverBy::id("editorLeafContentsAddFirst1"));
 					
 					if(!empty($editor_open))
 					{
-						echo "isme";
+						echo " isme ";
 						$is_draft=$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/span[1]"))->getText();
 						if($is_draft=="Drafts saved")
 						{
-							echo "draft";
+							echo " draft ";
 							$web_driver->manage()->timeouts()->implicitlyWait(50);
 							$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/a[1]/input"))->click();
+						}
+						else
+						{
+							echo " else editor open ";
+							$web_driver->wait(60,100);
+							$editor_visible=$web_driver->findElements(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/div/div[3]/div/p"));
+							if(!empty($editor_visible))
+							{
+								$click_save=$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/a[1]/input"))->isDisplayed();
+								if($click_save==true)
+								{
+									echo " final click ";
+									$web_driver->findElement(WebDriverBy::xpath("/html/body/div[5]/div[2]/form/div/div/span/div/a[1]/input"))->click();
+								}
+							}
 						}
 					}
 					else
 					{
 						echo "usme";
-						$web_driver->manage()->timeouts()->implicitlyWait(10);
+						$web_driver->manage()->timeouts()->implicitlyWait(50);
 					}
-					$web_driver->manage()->timeouts()->implicitlyWait(10);
+					$web_driver->manage()->timeouts()->implicitlyWait(50);
 					
 					 
 					// $this->post_count++;
