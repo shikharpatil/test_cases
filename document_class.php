@@ -246,7 +246,7 @@ class document
 		// 	}
 		// }
 		// for ($i=0; $i < count($movie_names) ; $i++)
-		for ($i=0; $i < 10 ; $i++) 
+		for ($i=0; $i < 20 ; $i++) 
 		{ 
 			$data=$this->doc_data($movie_names[$i],$i,$web_driver);
 			// echo "<pre>";
@@ -377,7 +377,7 @@ class document
 				 	// /html/body/div[5]/div[2]/div[2]
 				 	$web_driver->wait()->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::xpath("/html/body/div[5]/div[2]")));
 				 	// /html/body/div[5]/div[2]/div[2]/div[1]/a
-				 	$web_driver->findElement(WebDriverBy::linkText("SpaceDoc16"))->click();
+				 	$web_driver->findElement(WebDriverBy::linkText("SpaceDoc19"))->click();
 				}
 				else
 				{
@@ -388,7 +388,7 @@ class document
 				$web_driver->wait(60,1000)->until(WebDriverExpectedCondition::titleContains("Document >"));
 				// echo $web_driver->getTitle();
 				// $web_driver->quit();
-				for($i=0;$i<10;$i++)
+				for($i=0;$i<20;$i++)
 				{
 					echo " loop ";
 					$web_driver->manage()->timeouts()->implicitlyWait(50);
