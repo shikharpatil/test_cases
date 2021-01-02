@@ -263,8 +263,11 @@ class document
 		// echo "<pre>";
 		// print_r($dataInLeaves);
 		// echo "<br>";
-		
-		
+		// foreach ($dataInLeaves as $value) 
+		// {
+		// 	print_r(array_filter($value['data'], 'strlen'));
+		// }
+		$dataInLeaves= array_filter(array_map('array_filter', $dataInLeaves));
 		// print_r($dataInLeaves);
 		// foreach ($dataInLeaves as $key => $value)
 		// 		{
@@ -635,12 +638,12 @@ class document
         	$web_driver->quit();
         	$this->leaves_in_doc($dataInLeaves,$k);
         }
-        // catch(Exception\UnrecognizedExceptionException $e)
-        // {
-        // 	echo "unrecognized count=>".$this->leaf_count;
-        // 	$web_driver->quit();
-        // 	$this->leaves_in_doc($dataInLeaves,$k);
-        // }
+        catch(Exception\UnrecognizedExceptionException $e)
+        {
+        	echo "unrecognized count=>".$this->leaf_count;
+        	$web_driver->quit();
+        	$this->leaves_in_doc($dataInLeaves,$k);
+        }
 					
 		// $url=$web_driver->getCurrentUrl();
 		// $web_driver->get($url);
