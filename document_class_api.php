@@ -247,7 +247,7 @@ class document
 		// 	}
 		// }
 		// for ($i=0; $i < count($movie_names) ; $i++)
-		for ($i=0; $i < 2 ; $i++) 
+		for ($i=0; $i < 500 ; $i++) 
 		{ 
 			$data=$this->doc_data($movie_names[$i],$i,$web_driver);
 			// echo "<pre>";
@@ -296,23 +296,25 @@ class document
 	function leaves_in_doc($dataInLeaves,$k)
 	{
 
-		$host = 'http://localhost:4444/wd/hub';
-		$desiredCapabilities = DesiredCapabilities::chrome();
-		// $desiredCapabilities->setCapability('acceptSslCerts', true);
-		$web_driver = RemoteWebDriver::create($host, $desiredCapabilities,1000 * 1000,1000 * 1000);
+		// $host = 'http://localhost:4444/wd/hub';
+		// $desiredCapabilities = DesiredCapabilities::chrome();
+		// // $desiredCapabilities->setCapability('acceptSslCerts', true);
+		// $web_driver = RemoteWebDriver::create($host, $desiredCapabilities,1000 * 1000,1000 * 1000);
 		try
 		{
 			$add_leaf_api_url="http://localhost/teeme_copy3/api/api_authentication/add_new_leaf_tree";
 
 				foreach ($dataInLeaves as $key => $value)
 				{
-					$data=array("treeId"=>587,
+					$userId=rand(1,4);
+					$data=array("treeId"=>1,
 						        "treeType"=>"document",
 						        "leafOrder"=>0,
 						        "curOption"=>"addFirst",
-						        "WorkSpaceId"=>6,
+						        "WorkSpaceId"=>3,
+						        "workSpaceType"=>1,
 						        "leafContent"=>"<p>".$value['data']."</p>",
-						        "userId"=>1);
+						        "userId"=>$userId);
 					// $data=json_encode($data);
 
 					$data_array=array("data"=>$data);
@@ -343,26 +345,26 @@ class document
 			        // decoding the json response 
 			       $response = json_decode($result, true);
 
-			        print_r($response);
+			        // print_r($response);
 			       
 			       // return $response;
 
 			       $this->leaf_count++;
 					
-					if($this->leaf_count >= 100)
+					if($this->leaf_count >= 100000)
 					{
-						$web_driver->quit();
+						// $web_driver->quit();
 						echo "completed count =>".$this->leaf_count;
 						die();
 					} 
 				}
 
-				$web_driver->quit();
+				// $web_driver->quit();
                 $k=$k+1;
                 echo "<br>";
                 print_r($k);
                 echo "<br>";
-				if($k<3)
+				if($k<401)
 				{
 
 					// $this->change=$this->change+1;
@@ -370,7 +372,7 @@ class document
 				}
 				else
 				{
-					$web_driver->quit();
+					// $web_driver->quit();
 					echo "completed count =>".$this->leaf_count;
 					die();
 				}
