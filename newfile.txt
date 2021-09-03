@@ -1,4 +1,38 @@
-Total Execution Time: 2.1576211492221 Mins
+run without async =>Total Execution Time: 2.1576211492221 Mins
 
 
-Total Execution Time: 2.3929478009542 Mins
+run with async1 =>Total Execution Time: 2.3929478009542 Mins
+
+
+run with async2 =>Total Execution Time: 1.4806150833766 Mins 
+
+run with async3 removed the result part in curl =>
+Total Execution Time: 1.4708263834318 Mins
+
+run when curl session ended in view file by passing the handles in view file
+=> 
+Total Execution Time: 1.5317909518878 Mins (113folders).
+
+run when the whole execution of curl was done in view file => 
+ Total Execution Time: 1.5264159162839 Mins (109folders).
+
+ run when the only one curl call for creating folders for all 1000 users=>
+Total Execution Time: 1.3235554814339 Mins
+
+run with 5000 users in one curl call=> 
+Total Execution Time: 10.951501333714 Mins
+
+run in adding space members 5000 members added all success=>
+Total Execution Time: 2.7177811772245 Mins 
+
+run when most invalid emails while adding members csv 5k =>
+Total Execution Time: 0.72051094770432 Mins
+
+run when most invalid emails and invalid users for adding members csv 5k =>
+Total Execution Time: 0.72440538406372 Mins
+
+run when partial users did not exist =>
+Total Execution Time: 1.1397658666Mins 
+
+run when partial user emails are invalid =>
+Total Execution Time: 1.1399423679Mins
